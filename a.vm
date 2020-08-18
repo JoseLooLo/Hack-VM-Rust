@@ -1,0 +1,3 @@
+push local 1
+push static 5
+add
