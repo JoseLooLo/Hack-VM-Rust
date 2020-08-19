@@ -16,7 +16,8 @@ fn main() {
 
     let filename_without_extension = filename.split('.')
                                     .collect::<Vec<&str>>()[0];
-    let mut newfile = codewriter::Codewriter::new(filename_without_extension)
+    let filename_with_extension = format!("{}.{}", filename_without_extension, "asm");
+    let mut newfile = codewriter::Codewriter::new(&filename_with_extension)
                     .expect("erro");
 
     for a in file.content.lines(){
