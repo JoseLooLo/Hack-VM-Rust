@@ -1,6 +1,7 @@
 use std::fs;
 use std::io;
 
+
 pub struct File {
     pub content: String,
 }
@@ -16,8 +17,8 @@ impl File {
         }
     }
 
-    pub fn get_command(&self, _command: &str) -> Result<vm::Command, String> {
-        let mut comm = vm::Command::new();
+    pub fn get_command(&self, _command: &str) -> Result<crate::Command, String> {
+        let mut comm = crate::Command::new();
         let c = _command.trim()
                 .to_string()
                 .to_lowercase();
@@ -38,31 +39,31 @@ impl File {
         return Ok(comm);
     }
 
-    fn get_type(&self, _type: &str) -> Result<vm::Type, String> {
+    fn get_type(&self, _type: &str) -> Result<crate::Type, String> {
         if _type == "add" || _type == "sub" || _type == "neg" {
-            return Ok(vm::Type::Arithmetic)
+            return Ok(crate::Type::Arithmetic)
         } else if _type == "eq" || _type == "gt" || _type == "lt" {
-            return Ok(vm::Type::Arithmetic)
+            return Ok(crate::Type::Arithmetic)
         } else if _type == "and" || _type == "or" || _type == "not" {
-            return Ok(vm::Type::Arithmetic)
+            return Ok(crate::Type::Arithmetic)
         } else if _type == "push" {
-            return Ok(vm::Type::Push)
+            return Ok(crate::Type::Push)
         } else if _type == "pop" {
-            return Ok(vm::Type::Pop)
+            return Ok(crate::Type::Pop)
         } else {
             return Err("Invalid command".to_string())
         }
     }
 
-    fn get_arg1(&self, _type: &vm::Type, _arg1: &str) -> Result<String, String> {
+    fn get_arg1(&self, _type: &crate::Type, _arg1: &str) -> Result<String, String> {
         match _type {
-            &vm::Type::Arithmetic => {
+            &crate::Type::Arithmetic => {
                 return Ok(_arg1.to_string());
             },
-            &vm::Type::Push => {
+            &crate::Type::Push => {
                 return Ok(_arg1.to_string());
             },
-            &vm::Type::Pop => {
+            &crate::Type::Pop => {
                 return Ok(_arg1.to_string());
             },
             _ => {
@@ -71,16 +72,16 @@ impl File {
         }
     }
 
-    fn get_arg2(&self, _type: &vm::Type, _arg2: &str) -> Result<i32, String> {
+    fn get_arg2(&self, _type: &crate::Type, _arg2: &str) -> Result<i32, String> {
         let _arg2 = match _arg2.parse::<i32>(){
             Ok(n) => n,
             Err(_e) => return Err("Invalid command".to_string()),
         };
         match _type {
-            &vm::Type::Push => {
+            &crate::Type::Push => {
                 Ok(_arg2)
             },
-            &vm::Type::Pop => {
+            &crate::Type::Pop => {
                 Ok(_arg2)
             },
             _ => {
