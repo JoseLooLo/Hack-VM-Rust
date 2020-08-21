@@ -56,15 +56,16 @@ fn main() {
                     .expect("erro");
 
     for a in file.content.lines(){
-        let cm = match file.get_command(a) {
-            Ok(n) => n,
+        let _ = match file.get_command(a) {
+            Ok(n) => {
+                newfile.write(&n);
+                n.print();
+            },
             Err(e) => {
                 println!("{}",e);
-                process::exit(1);
+                //process::exit(1);
             },
         };
-        newfile.write(&cm);
-        cm.print();
     }
 
 }

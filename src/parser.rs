@@ -22,6 +22,10 @@ impl File {
         let c = _command.trim()
                 .to_string()
                 .to_lowercase();
+        
+        if c.len() == 0 {
+            return Err("Invalid Command".to_string());
+        }
         let c: Vec<&str> = c.split_whitespace()
                             .collect();
 
