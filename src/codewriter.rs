@@ -11,7 +11,7 @@ pub struct Codewriter {
 
 impl Codewriter {
     pub fn new(filename: &str) -> Result<Codewriter, io::Error> {
-        match OpenOptions::new().append(false).write(true).open(filename) {
+        match OpenOptions::new().append(false).write(true).create(true).open(filename) {
             Ok(n) => Ok(Codewriter{
                 file: n,
                 filename: filename.split('.').collect::<Vec<&str>>()[0].to_string().to_uppercase(),
